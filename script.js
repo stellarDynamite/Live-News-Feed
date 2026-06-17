@@ -34,3 +34,24 @@ function bindData(articles) {
         cardsContainer.appendChild(cardClone);
     });
 }
+
+// added custom search functionality
+const searchButton = document.getElementById("search-button");
+const searchText = document.getElementById("search-text");
+
+// Search based on user input
+searchButton.addEventListener("click", () => {
+
+    const query = searchText.value;
+
+    if (!query) return;
+
+    fetchNews(query);
+
+    // Clear active category after manual search
+    if (curSelectedNav) {
+    curSelectedNav.classList.remove("active");
+    curSelectedNav = null;
+    }
+});
+
