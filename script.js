@@ -14,3 +14,23 @@ async function fetchNews(query) {
     const data = await res.json();
     bindData(data.articles);
 }
+
+function bindData(articles) {
+    const cardsContainer = document.getElementById("cards-container");
+    const newsCardTemplate = document.getElementById("template-news-card");
+
+    // Remove old cards before displaying new results
+    cardsContainer.innerHTML = "";
+
+    articles.forEach((article) => {
+
+        // Skip articles without images
+        if (!article.urlToImage) return;
+
+        const cardClone = newsCardTemplate.content.cloneNode(true);
+
+        fillDataInCard(cardClone, article);
+
+        cardsContainer.appendChild(cardClone);
+    });
+}
