@@ -35,6 +35,34 @@ function bindData(articles) {
     });
 }
 
+// *below part : dipanjan*
+
+// Fill a cloned card with article data
+function fillDataInCard(cardClone, article) {
+
+    const newsImg = cardClone.querySelector("#news-img");
+    const newsTitle = cardClone.querySelector("#news-title");
+    const newsSource = cardClone.querySelector("#news-source");
+    const newsDesc = cardClone.querySelector("#news-desc");
+
+    newsImg.src = article.urlToImage;
+    newsTitle.innerHTML = article.title;
+    newsDesc.innerHTML = article.description;
+
+    // Convert API date into readable format
+    const date = new Date(article.publishedAt).toLocaleString("en-US", {
+        timeZone: "Asia/Jakarta",
+    });
+
+    newsSource.innerHTML = `${article.source.name} · ${date}`;
+
+    // Open article in a new browser tab
+    cardClone.firstElementChild.addEventListener("click", () => {
+        window.open(article.url, "_blank");
+    });
+}
+
+
 // added custom search functionality
 const searchButton = document.getElementById("search-button");
 const searchText = document.getElementById("search-text");
