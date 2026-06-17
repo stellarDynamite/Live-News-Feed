@@ -83,3 +83,22 @@ searchButton.addEventListener("click", () => {
     }
 });
 
+// Stores currently active navigation item
+let curSelectedNav = null;
+
+function onNavItemClick(id) {
+
+    fetchNews(id);
+
+    const navItem = document.getElementById(id);
+
+    // Remove highlight from previously selected tab
+    curSelectedNav?.classList.remove("active");
+
+    curSelectedNav = navItem;
+
+    // Highlight the current tab
+    curSelectedNav.classList.add("active");
+}
+
+
