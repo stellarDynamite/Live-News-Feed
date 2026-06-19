@@ -1,4 +1,4 @@
-const API_KEY = "a179a6735a1eb7a417c87ef21441294b";
+const API_KEY = "042715f2ceb1c0ef3cd694d903477fbb";
 const url = "https://gnews.io/api/v4/search?q=";
 
 // Load default news when the page opens
