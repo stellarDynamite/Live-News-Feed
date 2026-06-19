@@ -1,4 +1,4 @@
-const API_KEY = NEWS_API_KEY;
+const API_KEY = "75e1dae7dc0f45d39b6b2e6b35ca59cd";
 const url = "https://newsapi.org/v2/everything?q=";
 
 // Load default news when the page opens
