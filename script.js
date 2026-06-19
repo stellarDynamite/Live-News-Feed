@@ -1,5 +1,4 @@
-const API_KEY = "042715f2ceb1c0ef3cd694d903477fbb";
-const url = "https://gnews.io/api/v4/search?q=";
+const url = "/api/news?q=";
 
 // Load default news when the page opens
 window.addEventListener("load", () => fetchNews("India"));
@@ -8,11 +7,11 @@ function reload() {
   window.location.reload();
 }
 
-// Fetch news data from GNews
+// Fetch news data from our backend proxy
 async function fetchNews(query) {
   try {
     const res = await fetch(
-      `${url}${encodeURIComponent(query)}&apikey=${API_KEY}`,
+      `${url}${encodeURIComponent(query)}`
     );
 
     const data = await res.json();
