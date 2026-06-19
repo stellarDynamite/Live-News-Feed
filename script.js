@@ -1,5 +1,5 @@
 const API_KEY = "a179a6735a1eb7a417c87ef21441294b";
-const url = "https://newsapi.org/v2/everything?q=";
+const url = "https://gnews.io/api/v4/search?q=";
 
 // Load default news when the page opens
 window.addEventListener("load", () => fetchNews("India"));
@@ -45,7 +45,7 @@ function fillDataInCard(cardClone, article) {
     const newsSource = cardClone.querySelector("#news-source");
     const newsDesc = cardClone.querySelector("#news-desc");
 
-    newsImg.src = article.urlToImage;
+    newsImg.src = article.image;
     newsTitle.innerHTML = article.title;
     newsDesc.innerHTML = article.description;
 
