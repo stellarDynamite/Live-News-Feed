@@ -5,100 +5,101 @@ const url = "https://gnews.io/api/v4/search?q=";
 window.addEventListener("load", () => fetchNews("India"));
 
 function reload() {
-    window.location.reload();
+  window.location.reload();
 }
 
-// Fetch news data from NewsAPI
+// Fetch news data from GNews
 async function fetchNews(query) {
-    const res = await fetch(`${url}${query}&apiKey=${API_KEY}`);
-    const data = await res.json();
-    bindData(data.articles);
+  const res = await fetch(
+    `${url}${encodeURIComponent(query)}&apikey=${API_KEY}`,
+  );
+
+  const data = await res.json();
+  console.log(data);
+
+  bindData(data.articles);
 }
 
 function bindData(articles) {
-    const cardsContainer = document.getElementById("cards-container");
-    const newsCardTemplate = document.getElementById("template-news-card");
+  const cardsContainer = document.getElementById("cards-container");
+  const newsCardTemplate = document.getElementById("template-news-card");
 
-    // Remove old cards before displaying new results
-    cardsContainer.innerHTML = "";
+  cardsContainer.innerHTML = "";
 
-    articles.forEach((article) => {
+  articles.forEach((article) => {
+    console.log(article);
 
-        // Skip articles without images
-        if (!article.urlToImage) return;
+    if (!article.image) {
+      console.log("No image:", article.title);
+      return;
+    }
 
-        const cardClone = newsCardTemplate.content.cloneNode(true);
-
-        fillDataInCard(cardClone, article);
-
-        cardsContainer.appendChild(cardClone);
-    });
+    const cardClone = newsCardTemplate.content.cloneNode(true);
+    fillDataInCard(cardClone, article);
+    cardsContainer.appendChild(cardClone);
+  });
 }
 
-// *below part : dipanjan*
-
-// Fill a cloned card with article data
 function fillDataInCard(cardClone, article) {
-
-    const newsImg = cardClone.querySelector("#news-img");
-    const newsTitle = cardClone.querySelector("#news-title");
-    const newsSource = cardClone.querySelector("#news-source");
-    const newsDesc = cardClone.querySelector("#news-desc");
+  const newsImg = cardClone.querySelector("#news-img");
+  const newsTitle = cardClone.querySelector("#news-title");
+  const newsSource = cardClone.querySelector("#news-source");
+  const newsDesc = cardClone.querySelector("#news-desc");
 
     newsImg.src = article.image;
     newsTitle.innerHTML = article.title;
     newsDesc.innerHTML = article.description;
 
-    // Convert API date into readable format
-    const date = new Date(article.publishedAt).toLocaleString("en-US", {
-        timeZone: "Asia/Jakarta",
-    });
+  const date = new Date(article.publishedAt).toLocaleString("en-US", {
+    timeZone: "Asia/Kolkata",
+  });
 
-    newsSource.innerHTML = `${article.source.name} · ${date}`;
+  newsSource.innerHTML = `${article.source.name} · ${date}`;
 
-    // Open article in a new browser tab
-    cardClone.firstElementChild.addEventListener("click", () => {
-        window.open(article.url, "_blank");
-    });
+  cardClone.firstElementChild.addEventListener("click", () => {
+    window.open(article.url, "_blank");
+  });
 }
 
-
-// added custom search functionality
+// Search functionality
 const searchButton = document.getElementById("search-button");
 const searchText = document.getElementById("search-text");
 
-// Search based on user input
-searchButton.addEventListener("click", () => {
+searchButton.addEventListener("click", searchNews);
 
-    const query = searchText.value;
-
-    if (!query) return;
-
-    fetchNews(query);
-
-    // Clear active category after manual search
-    if (curSelectedNav) {
-    curSelectedNav.classList.remove("active");
-    curSelectedNav = null;
-    }
+searchText.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    searchNews();
+  }
 });
 
-// Stores currently active navigation item
+function searchNews() {
+  const query = searchText.value.trim();
+
+  if (!query) return;
+
+  fetchNews(query);
+
+  if (curSelectedNav) {
+    curSelectedNav.classList.remove("active");
+    curSelectedNav = null;
+  }
+}
+
+// Stores currently selected nav item
 let curSelectedNav = null;
 
 function onNavItemClick(id) {
+  fetchNews(id);
 
-    fetchNews(id);
+  if (curSelectedNav) {
+    curSelectedNav.classList.remove("active");
+  }
 
-    const navItem = document.getElementById(id);
+  const navItem = document.getElementById(id);
 
-    // Remove highlight from previously selected tab
-    curSelectedNav?.classList.remove("active");
-
+  if (navItem) {
     curSelectedNav = navItem;
-
-    // Highlight the current tab
     curSelectedNav.classList.add("active");
+  }
 }
-
-

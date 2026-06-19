@@ -14,60 +14,118 @@
 
     <nav>
 
-        <div class="main-nav">
+    <div class="main-nav">
 
-            <a href="#" onclick="reload()" class="company-logo">
-                NEWS
-            </a>
+        <a href="#" onclick="reload()" class="company-logo">
+            NEWS
+        </a>
 
-            <div class="nav-links">
+        <div class="nav-links">
 
-                <ul>
+            <ul>
 
-                    <li class="hover-link nav-item"
-                        id="Lifestyle"
-                        onclick="onNavItemClick('lifestyle')">
-                        Lifestyle
-                    </li>
+                <li class="hover-link nav-item"
+                    id="technology"
+                    onclick="onNavItemClick('technology')">
+                    Technology
+                </li>
 
-                    <li class="hover-link nav-item"
-                        id="finance"
-                        onclick="onNavItemClick('finance')">
-                        Finance
-                    </li>
+                <li class="hover-link nav-item"
+                    id="sports"
+                    onclick="onNavItemClick('sports')">
+                    Sports
+                </li>
 
-                    <li class="hover-link nav-item"
-                        id="politics"
-                        onclick="onNavItemClick('politics')">
-                        Politics
-                    </li>
+                <li class="hover-link nav-item"
+                    id="science"
+                    onclick="onNavItemClick('science')">
+                    Science
+                </li>
 
-                </ul>
-
-            </div>
-
-            <div class="search-bar">
-
-                <input
-                    id="search-text"
-                    type="text"
-                    class="news-input"
-                    placeholder="Search news..."
-                >
-
-                <button
-                    id="search-button"
-                    class="search-button">
-
-                    Search
-
-                </button>
-
-            </div>
+            </ul>
 
         </div>
 
-    </nav>
+        <div class="search-bar">
+
+            <input
+                id="search-text"
+                type="text"
+                class="news-input"
+                placeholder="Search news..."
+            >
+
+            <button
+                id="search-button"
+                class="search-button">
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <h2>Category</h2>
+
+        <ul>
+
+            <li onclick="fetchNews('technology')">
+                Technology
+            </li>
+
+            <li onclick="fetchNews('sports')">
+                Sports
+            </li>
+
+            <li onclick="fetchNews('science')">
+                Science
+            </li>
+
+            <li onclick="fetchNews('health')">
+                Health
+            </li>
+
+            <li onclick="fetchNews('business')">
+                Business
+            </li>
+
+            <li onclick="fetchNews('politics')">
+                Politics
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <main>
+
+        <div class="hero">
+
+            <h1>
+                Today's Headlines
+            </h1>
+
+            <p>
+                Stay updated with trending stories around the world.
+            </p>
+
+        </div>
+
+        <div
+            class="cards-container"
+            id="cards-container">
+
+        </div>
+
+    </main>
+
+</div>
 
     <div class="layout">
 
