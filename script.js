@@ -10,14 +10,24 @@ function reload() {
 
 // Fetch news data from GNews
 async function fetchNews(query) {
-  const res = await fetch(
-    `${url}${encodeURIComponent(query)}&apikey=${API_KEY}`,
-  );
+  try {
+    const res = await fetch(
+      `${url}${encodeURIComponent(query)}&apikey=${API_KEY}`,
+    );
 
-  const data = await res.json();
-  console.log(data);
+    const data = await res.json();
+    console.log(data);
 
-  bindData(data.articles);
+    if (data.errors || !data.articles) {
+      console.error("API Error:", data.errors);
+      alert("Uh oh! The News API has reached its daily limit or returned an error. Please try again later.");
+      return;
+    }
+
+    bindData(data.articles);
+  } catch (error) {
+    console.error("Fetch Error:", error);
+  }
 }
 
 function bindData(articles) {
